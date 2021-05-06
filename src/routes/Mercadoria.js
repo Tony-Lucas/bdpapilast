@@ -40,20 +40,24 @@ Router.get("/limite", async (req, res) => {
 })
 
 Router.post("/", autenticacao ,upload.single("img"), async (req, res) => {
-    if (req.file) {
-        const mercadoria = await Mercadoria.create({ nome: req.body.nome, precoCompra: req.body.precoCompra, precoVenda: req.body.precoVenda, nomeImg: req.file.filename });
-        if (mercadoria) {
-            res.json({ success: true, mercadoria: mercadoria })
+    try {
+        if (req.file) {
+            const mercadoria = await Mercadoria.create({ nome: req.body.nome, precoCompra: req.body.precoCompra, precoVenda: req.body.precoVenda, nomeImg: req.file.filename });
+            if (mercadoria) {
+                res.json({ success: true, mercadoria: mercadoria })
+            } else {
+                res.json({ success: false })
+            }
         } else {
-            res.json({ success: false })
+            const mercadoria = await Mercadoria.create({ nome: req.body.nome, precoCompra: req.body.precoCompra, precoVenda: req.body.precoVenda });
+            if (mercadoria) {
+                res.json({ success: true, mercadoria: mercadoria })
+            } else {
+                res.json({ success: false })
+            }
         }
-    } else {
-        const mercadoria = await Mercadoria.create({ nome: req.body.nome, precoCompra: req.body.precoCompra, precoVenda: req.body.precoVenda });
-        if (mercadoria) {
-            res.json({ success: true, mercadoria: mercadoria })
-        } else {
-            res.json({ success: false })
-        }
+    } catch (error) {
+        res.json({erro:error.message})
     }
 
 })
