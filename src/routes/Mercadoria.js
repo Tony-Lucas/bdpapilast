@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
         cb(null, file.fieldname + '-' + Date.now() + file.originalname)
     }
 })
-const upload = multer({ dest: "/uploads/" })
+const upload = multer({ dest: "/" })
 const fs = require("fs")
 
 Router.get("/", async (req, res) => {
