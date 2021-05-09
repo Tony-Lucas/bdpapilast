@@ -5,7 +5,6 @@
   "main": "src/loader.js",
   "scripts": {
     "start": "node src/loader.js"
-
   },
   "keywords": [],
   "author": "",
