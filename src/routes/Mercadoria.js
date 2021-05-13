@@ -39,6 +39,11 @@ Router.get("/limite", async (req, res) => {
     res.json({mercadorias:mercadorias})
 })
 
+Router.get("/busca",async (req,res) => {
+    const mercadorias = await sequelize.query("SELECT * FROM mercadorias WHERE nome LIKE " + req.query.nome + "%");
+    res.json({success:true,mercadorias:mercadorias})
+})
+
 Router.post("/", autenticacao ,upload.single("img"), async (req, res) => {
     try {
         if (req.file) {
