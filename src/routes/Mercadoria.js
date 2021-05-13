@@ -35,7 +35,7 @@ Router.get("/:id/:token", async (req, res) => {
 })
 
 Router.get("/limite", async (req, res) => {
-    const mercadorias = await sequelize.query("SELECT * FROM mercadorias LIMIT 10 OFFSET " + req.query.pulos);
+    const mercadorias = await sequelize.query("SELECT * FROM mercadorias ORDER BY nome ASC LIMIT 10 OFFSET " + req.query.pulos);
     res.json({mercadorias:mercadorias})
 })
 
